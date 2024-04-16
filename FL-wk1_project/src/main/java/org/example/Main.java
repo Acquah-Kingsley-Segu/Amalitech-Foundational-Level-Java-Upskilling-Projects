@@ -1,14 +1,13 @@
 package org.example;
 
-import java.util.ArrayList;
-import java.util.List;
+import java.util.Arrays;
 import java.util.Scanner;
 
 public class Main {
     public static void main(String[] args) {
         int randomNumber;
         final int possibleNumberOfGuesses = 5;
-        List<Integer> userGuesses = new ArrayList<>(5);
+        int[] userGuesses = new int[5];
         String endKeyStroke = "";
         Scanner input = new Scanner(System.in);
         int userGuess;
@@ -31,7 +30,7 @@ public class Main {
             for (int counter = 1; counter <= possibleNumberOfGuesses; counter++){
                 System.out.print("Enter your guess number: ");
                 userGuess = input.nextInt();
-                userGuesses.add(userGuess);
+                userGuesses[counter - 1] = userGuess;
                 input.nextLine();
                 if (userGuess == randomNumber)
                 {
@@ -40,7 +39,7 @@ public class Main {
                 }
                 System.out.println("Wrong guess.\nYou have (" + (possibleNumberOfGuesses - counter) + ") more guesses.");
             }
-            System.out.println("Your guessed numbers are " + userGuesses);
+            System.out.println("Your guessed numbers are " + Arrays.toString(userGuesses));
             System.out.print("Enter 'c' to continue or 'q' to exit: ");
             endKeyStroke = input.nextLine();
         }while (!endKeyStroke.equals("q"));
