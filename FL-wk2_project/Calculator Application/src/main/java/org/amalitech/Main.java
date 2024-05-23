@@ -1,7 +1,5 @@
 package org.amalitech;
 
-import java.util.Arrays;
-import java.util.Objects;
 import java.util.Scanner;
 
 public class Main {
@@ -17,6 +15,7 @@ public class Main {
                 *                Welcome to CalculateIT App                  *
                 *    Enter your arithmetic operations after the (>) prompt   *
                 *               Enter 'q' to exist program                   *
+                *    Prompt example > 30 * 5 (add space after each input)    *
                 **************************************************************
                 """);
         System.out.print("> ");
@@ -64,7 +63,6 @@ public class Main {
                     (Main.operators.substring(2, 4).contains(operations[idx]))) { // get only + and - symbols
 
                 if (Main.checkNextOperator(operations, idx)) {
-                    System.out.println(operations[idx] + " = " + Main.checkNextOperator(operations, idx));
                     Main.usedOperators = Main.usedOperators.concat(operations[idx]);
                 }
                 else if ((operations[idx].equals("-")) && (idx + 1 < operations.length - 1))
@@ -72,14 +70,12 @@ public class Main {
                     int op1 = Main.operandStack.pop();
                     int op2 = Integer.parseInt(operations[++idx]);
                     int result = Main.performSubtraction(op1, op2);
-                    System.out.printf("%n%d %s %d = %d%n", op1, operations[idx - 1], op2, result);
                     Main.operandStack.push(result);
                 }
                 else if ((operations[idx].equals("+")) && (idx + 1 < operations.length - 1)) {
                     int op1 = Main.operandStack.pop();
                     int op2 = Integer.parseInt(operations[++idx]);
                     int result = Main.performAddition(op1, op2);
-                    System.out.printf("%n%d %s %d = %d%n", op1, operations[idx - 1], op2, result);
                     Main.operandStack.push(result);
                 }else
                     Main.usedOperators = Main.usedOperators.concat(operations[idx]);
@@ -92,27 +88,21 @@ public class Main {
                     result = Main.performMultiplication(op1, op2);
                 else
                     result = Main.performDivision(op1, op2);
-                System.out.printf("%n%d %s %d = %d%n", op1, operations[idx - 1], op2, result);
                 Main.operandStack.push(result);
             }
-            Main.operandStack.displayStack();
         }
         Main.operandStack.reverseStack();
-        Main.operandStack.displayStack();
-        System.out.println(usedOperators);
         for (int idx = 0; idx < Main.usedOperators.length(); idx++){
             if (Main.usedOperators.charAt(idx) == '-')
             {
                 int op2 = Main.operandStack.pop();
                 int op1 = Main.operandStack.pop();
                 int result = Main.performSubtraction(op2, op1);
-                System.out.printf("%n%d %s %d = %d", op2, usedOperators.charAt(idx), op1, result);
                 Main.operandStack.push(result);
             } else if (Main.usedOperators.charAt(idx) == '+') {
                 int op1 = Main.operandStack.pop();
                 int op2 = Main.operandStack.pop();
                 int result = Main.performAddition(op1, op2);
-                System.out.printf("%n%d %s %d = %d", op1, usedOperators.charAt(idx), op2, result);
                 Main.operandStack.push(result);
             }
         }
